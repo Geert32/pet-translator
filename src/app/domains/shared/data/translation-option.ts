@@ -1,1 +1,7 @@
-export type TranslationOption = 'auto-detect' | 'mens' | 'labrador' | 'parkiet' | 'papegaai';
+export enum TranslationOption {
+  AutoDetect = 'auto-detect',
+  Mens = 'mens',
+  Labrador = 'labrador',
+  Parkiet = 'parkiet',
+  Papegaai = 'papegaai',
+}

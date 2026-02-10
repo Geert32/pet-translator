@@ -27,35 +27,21 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2" for="from-language-select"
-            >Van</label
-          >
-          <select
-            class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#513cee] focus:ring-[#513cee]"
+          <app-translation-options
             id="from-language-select"
+            label="Van"
             [formField]="translationForm.fromLanguage"
-          >
-            <option value="auto-detect">Taal herkennen (Auto-detect)</option>
-            <option value="mens">Mens</option>
-            <option value="labrador">Labrador</option>
-            <option value="parkiet">Parkiet</option>
-            <option value="papegaai">Papegaai</option>
-          </select>
+            [options]="fromLanguageOptions()"
+          />
         </div>
 
         <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2" for="to-language-select"
-            >Naar</label
-          >
-          <select
-            class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#513cee] focus:ring-[#513cee]"
+          <app-translation-options
             id="to-language-select"
+            label="Naar"
             [formField]="translationForm.toLanguage"
-          >
-            <option value="labrador">Labrador</option>
-            <option value="parkiet">Parkiet</option>
-            <option value="papegaai">Papegaai</option>
-          </select>
+            [options]="toLanguageOptions()"
+          />
         </div>
 
         <button

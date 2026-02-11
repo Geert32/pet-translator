@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Translate } from './domains/translator/feature-translate/translate';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [Translate],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

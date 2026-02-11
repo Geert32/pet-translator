@@ -9,7 +9,13 @@
   "projects": {
     "pet-translator": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "changeDetection": "OnPush",
+          "skipTests": true,
+          "style": "none"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",

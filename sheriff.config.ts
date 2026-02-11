@@ -18,7 +18,7 @@ export const config: SheriffConfig = {
     root: '*',
     'domain:*': [sameTag, 'domain:shared'],
     'type:feature': ['type:ui', 'type:data', 'type:util'],
-    'type:ui': ['type:data', 'type:util'],
+    'type:ui': ['type:data', 'type:util', 'type:ui'],
     'type:data': ['type:util'],
     'type:util': [],
   },

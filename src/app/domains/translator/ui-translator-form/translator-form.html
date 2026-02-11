@@ -1,0 +1,74 @@
+<div class="min-h-screen bg-gray-50 p-4 md:p-8 flex items-center justify-center">
+  <div
+    class="w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
+  >
+    <div class="bg-[#513cee] p-6 text-white">
+      <h1 class="text-2xl font-bold flex items-center gap-2"><span>🐾</span> Dieren vertaler</h1>
+    </div>
+
+    <form class="p-6 space-y-6">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2" for="source-text-input"
+          >Te vertalen tekst</label
+        >
+        <textarea
+          class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#513cee] focus:ring-[#513cee] p-3"
+          id="source-text-input"
+          placeholder="Typ hier je bericht..."
+          rows="4"
+          [formField]="translationForm.sourceText"
+        ></textarea>
+        @if (showValidationError()) {
+          <p class="mt-2 text-red-600 text-sm font-medium">
+            ⚠️ Input komt niet overeen met geselecteerde taal
+          </p>
+        }
+        @if (translationForm.sourceText().touched() && translationForm.sourceText().dirty()) {
+          @for (error of translationForm.sourceText().errors(); track error) {
+            <p class="mt-2 text-red-600 text-sm font-medium">
+              {{ error.message }}
+            </p>
+          }
+        }
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <app-translation-options
+            id="from-language-select"
+            label="Van"
+            [formField]="translationForm.fromLanguage"
+            [options]="fromLanguageOptions()"
+          />
+        </div>
+
+        <div>
+          <app-translation-options
+            id="to-language-select"
+            label="Naar"
+            [formField]="translationForm.toLanguage"
+            [options]="toLanguageOptions()"
+          />
+        </div>
+
+        <button
+          class="cursor-pointer disabled:cursor-not-allowed disabled:bg-red-900 disabled:hover:bg-red-900 py-4 bg-[#fff533] hover:bg-[#ffe033] text-[#513cee] font-black uppercase tracking-widest rounded-lg transition-colors shadow-md"
+          type="button"
+          [disabled]="translationForm().invalid()"
+          (click)="onTranslate()"
+        >
+          Vertaal
+        </button>
+      </div>
+    </form>
+
+    <div class="bg-wite px-6 pb-6 text-gray900 min-h-25">
+      <h3 class="font-semibold text-gray-700 uppercase mb-2">Output</h3>
+      <div
+        class="border rounded-2xl border-dashed p-2 border-gray-900 text-black min-h-25 font-mono"
+      >
+        <span class="opacity-50">Wachten op invoer...</span>
+      </div>
+    </div>
+  </div>
+</div>

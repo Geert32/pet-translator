@@ -23,6 +23,13 @@
             ⚠️ Input komt niet overeen met geselecteerde taal
           </p>
         }
+        @if (translationForm.sourceText().touched() && translationForm.sourceText().dirty()) {
+          @for (error of translationForm.sourceText().errors(); track error) {
+            <p class="mt-2 text-red-600 text-sm font-medium">
+              {{ error.message }}
+            </p>
+          }
+        }
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -45,8 +52,9 @@
         </div>
 
         <button
-          class="cursor-pointer py-4 bg-[#fff533] hover:bg-[#ffe033] text-[#513cee] font-black uppercase tracking-widest rounded-lg transition-colors shadow-md"
+          class="cursor-pointer disabled:cursor-not-allowed disabled:bg-red-900 disabled:hover:bg-red-900 py-4 bg-[#fff533] hover:bg-[#ffe033] text-[#513cee] font-black uppercase tracking-widest rounded-lg transition-colors shadow-md"
           type="button"
+          [disabled]="translationForm().invalid()"
           (click)="onTranslate()"
         >
           Vertaal

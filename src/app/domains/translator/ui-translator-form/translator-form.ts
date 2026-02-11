@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslationRequest } from '../../shared/data/translation-request';
-import { form, FormField } from '@angular/forms/signals';
+import { form, FormField, required } from '@angular/forms/signals';
 import { TranslationOption } from '../../shared/data/translation-option';
 import { TranslationOptions } from '../ui-translation-options/translation-options';
+import { TRANSLATION_MAP } from '../../shared/data/allowed-translation-map';
 
 @Component({
   selector: 'app-translator-form',
@@ -22,13 +23,13 @@ export class TranslatorForm {
     sourceText: '',
   });
 
-  protected readonly translationForm = form(this.translationModel);
+  protected readonly translationForm = form(this.translationModel, (path) => {
+    required(path.sourceText, { message: 'Dit veld is verplicht.' });
+  });
 
-  protected readonly toLanguageOptions = signal<TranslationOption[]>([
-    TranslationOption.Labrador,
-    TranslationOption.Parkiet,
-    TranslationOption.Papegaai,
-  ]);
+  protected readonly toLanguageOptions = computed<TranslationOption[]>(() => {
+    return TRANSLATION_MAP[this.translationForm.fromLanguage().value()];
+  });
 
   protected readonly fromLanguageOptions = signal<TranslationOption[]>([
     TranslationOption.AutoDetect,

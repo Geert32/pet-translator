@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslationRequest } from '../../shared/data/translation-request';
 import { form, FormField, required } from '@angular/forms/signals';
@@ -14,6 +22,7 @@ import { LANGUAGE_MAP } from '../../shared/data/allowed-language-map';
 })
 export class TranslatorForm {
   readonly showValidationError = input<boolean>(false);
+  readonly fromLanguage = input<LanguageOption>(LanguageOption.AutoDetect);
 
   readonly translate = output<TranslationRequest>();
 
@@ -38,6 +47,12 @@ export class TranslatorForm {
     LanguageOption.Parkiet,
     LanguageOption.Papegaai,
   ]);
+
+  constructor() {
+    effect(() => {
+      this.translationForm.fromLanguage().value.set(this.fromLanguage());
+    });
+  }
 
   protected onTranslate(): void {
     this.translate.emit({

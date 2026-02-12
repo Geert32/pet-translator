@@ -3,16 +3,18 @@ import {
   Component,
   computed,
   effect,
+  inject,
   input,
   output,
   signal,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslationRequest } from '../../shared/data/translation-request';
-import { form, FormField, required } from '@angular/forms/signals';
+import { form, FormField, required, validate } from '@angular/forms/signals';
 import { LanguageOption } from '../../shared/data/language-option';
 import { TranslationOptions } from '../ui-translation-options/translation-options';
 import { LANGUAGE_MAP } from '../../shared/data/allowed-language-map';
+import { Translator } from '../../shared/data/translator/translator';
 
 @Component({
   selector: 'app-translator-form',
@@ -26,6 +28,8 @@ export class TranslatorForm {
 
   readonly translate = output<TranslationRequest>();
 
+  private readonly translator = inject(Translator);
+
   private readonly translationModel = signal<TranslationRequest>({
     toLanguage: LanguageOption.Labrador,
     fromLanguage: LanguageOption.AutoDetect,
@@ -34,6 +38,23 @@ export class TranslatorForm {
 
   protected readonly translationForm = form(this.translationModel, (path) => {
     required(path.sourceText, { message: 'Dit veld is verplicht.' });
+    validate(path.sourceText, (ctx) => {
+      const text = ctx.value();
+      const selectedFromLanguage = ctx.valueOf(path.fromLanguage);
+      const detectedLanguage = this.translator.detectLanguage(text);
+      if (
+        selectedFromLanguage === LanguageOption.AutoDetect ||
+        selectedFromLanguage === LanguageOption.Mens ||
+        selectedFromLanguage === detectedLanguage
+      ) {
+        return null;
+      }
+
+      return {
+        kind: 'invalidFromLanguage',
+        message: 'Input komt niet overeen met geselecteerde taal',
+      };
+    });
   });
 
   protected readonly toLanguageOptions = computed<LanguageOption[]>(() => {

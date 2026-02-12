@@ -43,7 +43,7 @@ const translatePapegaai: TranslationStrategy = {
       .split('.')
       .map((line) => `Ik praat je na: ${line}`)
       .join('.'),
-  isMatch: (text) => text.startsWith('Ik praat je na: '),
+  isMatch: (text) => text.split('.').every((line) => line.startsWith('Ik praat je na: ')),
   applyStyling: (text) =>
     text
       .split('.')

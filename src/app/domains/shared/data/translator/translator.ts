@@ -11,7 +11,7 @@ export class Translator {
   translate(text: string | null, option: LanguageOption): string {
     const strategy = this.registry[option];
 
-    if (!text) {
+    if (!text || text.trim().length === 0) {
       return '';
     }
 

@@ -18,6 +18,7 @@ describe('Translator', () => {
       ['ik ben een mens', 'woef woef woef woef'],
       ['woord', 'woef'],
       ['', ''],
+      [' ', ''],
       [null, ''],
     ])('should translate %s to %s', (input, expected) => {
       expect(spectator.service.translate(input, LanguageOption.Labrador)).toBe(expected);
@@ -27,8 +28,15 @@ describe('Translator', () => {
   describe('translate parkiet', () => {
     it.each([
       ['ik ben een mens', 'tjilp piep tjilp piep'],
+      ['a e i o u y', 'tjilp tjilp tjilp tjilp tjilp tjilp'],
+      [
+        'b c d f g h j k l m n p q r s t v w x z',
+        'piep piep piep piep piep piep piep piep piep piep piep piep piep piep piep piep piep piep piep piep',
+      ],
+      ['ik ben een mens', 'tjilp piep tjilp piep'],
       ['woord', 'piep'],
       ['', ''],
+      [' ', ''],
       [null, ''],
     ])('should translate %s to %s', (input, expected) => {
       expect(spectator.service.translate(input, LanguageOption.Parkiet)).toBe(expected);
@@ -40,6 +48,7 @@ describe('Translator', () => {
       ['ik ben een mens', 'Ik praat je na: ik ben een mens'],
       ['woord', 'Ik praat je na: woord'],
       ['', ''],
+      [' ', ''],
       [null, ''],
     ])('should translate %s to %s', (input, expected) => {
       expect(spectator.service.translate(input, LanguageOption.Papegaai)).toBe(expected);

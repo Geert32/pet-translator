@@ -2,7 +2,10 @@
   <div
     class="w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
   >
-    <app-translator-form (translate)="handleTranslation($event)" />
+    <app-translator-form
+      [fromLanguage]="detectedLanguage()"
+      (translate)="handleTranslation($event)"
+    />
     <div class="bg-wite px-6 pb-6 text-gray900 min-h-25">
       <h3 class="font-semibold text-gray-700 uppercase mb-2">Output</h3>
       <div

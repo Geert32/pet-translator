@@ -9,5 +9,7 @@ export default defineConfig(() => ({
         inline: ['@ngneat/spectator'],
       },
     },
+    environment: 'jsdom',
+    setupFiles: ['src/test-setup.ts'],
   },
 }));

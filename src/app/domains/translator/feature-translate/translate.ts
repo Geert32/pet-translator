@@ -4,6 +4,7 @@ import { TranslationRequest } from '../../shared/data/translation-request';
 import { Translator } from '../../shared/data/translator/translator';
 import { LanguageOption } from '../../shared/data/language-option';
 import { AnimalStylePipe } from '../../shared/data/animal-style-pipe';
+import { Drunk } from '../../shared/data/drunk/drunk';
 
 @Component({
   selector: 'app-translate',
@@ -13,6 +14,7 @@ import { AnimalStylePipe } from '../../shared/data/animal-style-pipe';
 })
 export class Translate {
   private readonly translator = inject(Translator);
+  private readonly drunk = inject(Drunk);
 
   protected readonly translatedText = signal<string>('');
   protected readonly languageDetectionFailed = signal<boolean>(false);
@@ -33,10 +35,14 @@ export class Translate {
       }
     }
 
-    const translatedText = this.translator.translate(
+    let translatedText = this.translator.translate(
       translationRequest.sourceText,
       translationRequest.toLanguage,
     );
+
+    if (translationRequest.isDrunk) {
+      translatedText = this.drunk.drankToMuch(translatedText);
+    }
 
     this.translatedText.set(translatedText ?? '');
   }

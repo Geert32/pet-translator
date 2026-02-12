@@ -4,4 +4,5 @@ export type TranslationRequest = {
   sourceText: string;
   fromLanguage: LanguageOption;
   toLanguage: LanguageOption;
+  isDrunk: boolean;
 };

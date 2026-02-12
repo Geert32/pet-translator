@@ -34,6 +34,7 @@ export class TranslatorForm {
     toLanguage: LanguageOption.Labrador,
     fromLanguage: LanguageOption.AutoDetect,
     sourceText: '',
+    isDrunk: false,
   });
 
   protected readonly translationForm = form(this.translationModel, (path) => {
@@ -80,6 +81,7 @@ export class TranslatorForm {
       sourceText: this.translationForm.sourceText().value(),
       fromLanguage: this.translationForm.fromLanguage().value(),
       toLanguage: this.translationForm.toLanguage().value(),
+      isDrunk: this.translationForm.isDrunk().value(),
     });
   }
 }

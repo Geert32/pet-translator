@@ -13,17 +13,17 @@
       rows="4"
       [formField]="translationForm.sourceText"
     ></textarea>
-    @if (showValidationError()) {
-      <p class="mt-2 text-red-600 text-sm font-medium">
-        ⚠️ Input komt niet overeen met geselecteerde taal
-      </p>
-    }
     @if (translationForm.sourceText().touched() && translationForm.sourceText().dirty()) {
       @for (error of translationForm.sourceText().errors(); track error) {
         <p class="mt-2 text-red-600 text-sm font-medium">
           {{ error.message }}
         </p>
       }
+    }
+    @if (detectionErrorOccurred()) {
+      <p class="mt-2 text-red-600 text-sm font-medium">
+        ⚠️ Taal kon niet automatisch worden herkent.
+      </p>
     }
   </div>
 

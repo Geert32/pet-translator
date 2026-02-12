@@ -3,6 +3,7 @@
     class="w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
   >
     <app-translator-form
+      [detectionErrorOccurred]="languageDetectionFailed()"
       [fromLanguage]="detectedLanguage()"
       (translate)="handleTranslation($event)"
     />

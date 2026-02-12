@@ -14,12 +14,20 @@ export class Translate {
   private readonly translator = inject(Translator);
 
   protected readonly translatedText = signal<string>('');
+  protected readonly languageDetectionFailed = signal<boolean>(false);
   protected readonly detectedLanguage = signal<LanguageOption>(LanguageOption.AutoDetect);
 
   protected handleTranslation(translationRequest: TranslationRequest): void {
+    this.languageDetectionFailed.set(false);
+
     if (translationRequest.fromLanguage === LanguageOption.AutoDetect) {
       const detectedLanguage = this.translator.detectLanguage(translationRequest.sourceText);
-      this.detectedLanguage.set(detectedLanguage);
+      if (detectedLanguage) {
+        this.detectedLanguage.set(detectedLanguage);
+      } else {
+        this.languageDetectionFailed.set(true);
+        return;
+      }
     }
 
     const translatedText = this.translator.translate(

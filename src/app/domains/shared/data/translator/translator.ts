@@ -19,11 +19,11 @@ export class Translator {
     return translateFn ? translateFn(trimmedText) : trimmedText;
   }
 
-  detectLanguage(text: string): LanguageOption {
-    const found = Object.keys(this.registry).find((key) =>
-      this.registry[key as LanguageOption]?.isMatch(text),
-    ) as LanguageOption;
-
-    return found || LanguageOption.Mens;
+  detectLanguage(text: string): LanguageOption | null {
+    return (
+      (Object.keys(this.registry).find((key) =>
+        this.registry[key as LanguageOption]?.isMatch(text),
+      ) as LanguageOption) ?? null
+    );
   }
 }

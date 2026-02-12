@@ -21,7 +21,7 @@ import { LANGUAGE_MAP } from '../../shared/data/allowed-language-map';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TranslatorForm {
-  readonly showValidationError = input<boolean>(false);
+  readonly detectionErrorOccurred = input<boolean>(false);
   readonly fromLanguage = input<LanguageOption>(LanguageOption.AutoDetect);
 
   readonly translate = output<TranslationRequest>();

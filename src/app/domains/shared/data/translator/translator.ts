@@ -8,7 +8,7 @@ import { LanguageOption } from '../language-option';
 export class Translator {
   private readonly registry = TRANSLATORS;
 
-  translate(text: string, option: LanguageOption): string | null {
+  translate(text: string | null, option: LanguageOption): string {
     const strategy = this.registry[option];
 
     if (!text) {

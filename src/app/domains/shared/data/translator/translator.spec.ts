@@ -1,16 +1,48 @@
-import { TestBed } from '@angular/core/testing';
-
 import { Translator } from './translator';
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator/vitest';
+import { LanguageOption } from '../language-option';
 
 describe('Translator', () => {
-  let service: Translator;
+  let spectator: SpectatorService<Translator>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(Translator);
-  });
+  const createService = createServiceFactory(Translator);
+
+  beforeEach(() => (spectator = createService()));
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(spectator.service).toBeTruthy();
+  });
+
+  describe('translate labrador', () => {
+    it.each([
+      ['ik ben een mens', 'woef woef woef woef'],
+      ['woord', 'woef'],
+      ['', ''],
+      [null, ''],
+    ])('should translate %s to %s', (input, expected) => {
+      expect(spectator.service.translate(input, LanguageOption.Labrador)).toBe(expected);
+    });
+  });
+
+  describe('translate parkiet', () => {
+    it.each([
+      ['ik ben een mens', 'tjilp piep tjilp piep'],
+      ['woord', 'piep'],
+      ['', ''],
+      [null, ''],
+    ])('should translate %s to %s', (input, expected) => {
+      expect(spectator.service.translate(input, LanguageOption.Parkiet)).toBe(expected);
+    });
+  });
+
+  describe('translate papegaai', () => {
+    it.each([
+      ['ik ben een mens', 'Ik praat je na: ik ben een mens'],
+      ['woord', 'Ik praat je na: woord'],
+      ['', ''],
+      [null, ''],
+    ])('should translate %s to %s', (input, expected) => {
+      expect(spectator.service.translate(input, LanguageOption.Papegaai)).toBe(expected);
+    });
   });
 });

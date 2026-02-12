@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { TranslatorForm } from '../ui-translator-form/translator-form';
 import { TranslationRequest } from '../../shared/data/translation-request';
 import { Translator } from '../../shared/data/translator/translator';
+import { LanguageOption } from '../../shared/data/language-option';
 
 @Component({
   selector: 'app-translate',
@@ -13,8 +14,22 @@ export class Translate {
   private readonly translator = inject(Translator);
 
   protected readonly translatedText = signal<string>('');
+  protected readonly languageDetectionFailed = signal<boolean>(false);
+  protected readonly detectedLanguage = signal<LanguageOption>(LanguageOption.AutoDetect);
 
   protected handleTranslation(translationRequest: TranslationRequest): void {
+    this.languageDetectionFailed.set(false);
+
+    if (translationRequest.fromLanguage === LanguageOption.AutoDetect) {
+      const detectedLanguage = this.translator.detectLanguage(translationRequest.sourceText);
+      if (detectedLanguage) {
+        this.detectedLanguage.set(detectedLanguage);
+      } else {
+        this.languageDetectionFailed.set(true);
+        return;
+      }
+    }
+
     const translatedText = this.translator.translate(
       translationRequest.sourceText,
       translationRequest.toLanguage,

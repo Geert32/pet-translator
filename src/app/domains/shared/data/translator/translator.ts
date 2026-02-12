@@ -9,13 +9,21 @@ export class Translator {
   private readonly registry = TRANSLATORS;
 
   translate(text: string | null, option: LanguageOption): string {
-    const strategy = this.registry[option];
+    const translateFn = this.registry[option].translate;
 
     if (!text || text.trim().length === 0) {
       return '';
     }
 
     const trimmedText = text.trim();
-    return strategy ? strategy(trimmedText) : trimmedText;
+    return translateFn ? translateFn(trimmedText) : trimmedText;
+  }
+
+  detectLanguage(text: string): LanguageOption | null {
+    return (
+      (Object.keys(this.registry).find((key) =>
+        this.registry[key as LanguageOption]?.isMatch(text),
+      ) as LanguageOption) ?? null
+    );
   }
 }

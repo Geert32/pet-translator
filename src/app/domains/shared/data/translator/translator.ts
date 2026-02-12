@@ -15,6 +15,7 @@ export class Translator {
       return '';
     }
 
-    return strategy ? strategy(text) : text;
+    const trimmedText = text.trim();
+    return strategy ? strategy(trimmedText) : trimmedText;
   }
 }

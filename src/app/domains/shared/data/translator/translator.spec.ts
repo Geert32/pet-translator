@@ -16,6 +16,7 @@ describe('Translator', () => {
   describe('translate labrador', () => {
     it.each([
       ['ik ben een mens', 'woef woef woef woef'],
+      ['ik ben een mens ', 'woef woef woef woef'],
       ['woord', 'woef'],
       ['', ''],
       [' ', ''],

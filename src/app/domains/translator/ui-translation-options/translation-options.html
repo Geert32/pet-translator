@@ -2,6 +2,7 @@
 <select
   class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#513cee] focus:ring-[#513cee]"
   [id]="id()"
+  [value]="value()"
   (change)="setValue($event)"
 >
   @for (option of options(); track option) {

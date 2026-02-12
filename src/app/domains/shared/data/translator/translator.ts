@@ -26,4 +26,13 @@ export class Translator {
       ) as LanguageOption) ?? null
     );
   }
+
+  applyStyling(text: string, option: LanguageOption): string {
+    if (!text) {
+      return '';
+    }
+
+    const applyStyling = this.registry[option].applyStyling;
+    return applyStyling ? applyStyling(text) : text;
+  }
 }

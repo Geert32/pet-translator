@@ -9,11 +9,9 @@
     />
     <div class="bg-wite px-6 pb-6 text-gray900 min-h-25">
       <h3 class="font-semibold text-gray-700 uppercase mb-2">Output</h3>
-      <div
-        class="border rounded-2xl border-dashed p-2 border-gray-900 text-black min-h-25 font-mono"
-      >
+      <div class="border rounded-2xl border-dashed p-2 border-gray-900 min-h-25 font-mono">
         @if (translatedText()) {
-          <span class="opacity-50">{{ translatedText() }}</span>
+          <span [innerHTML]="translatedText() | animalStyle: stylingLanguage()"></span>
         } @else {
           <span class="opacity-50">Wachten op invoer...</span>
         }

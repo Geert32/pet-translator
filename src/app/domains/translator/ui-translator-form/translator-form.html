@@ -35,6 +35,19 @@
         [formField]="translationForm.fromLanguage"
         [options]="fromLanguageOptions()"
       />
+      <div
+        class="flex mt-2 items-center gap-3 p-3 bg-gray-50 rounded-lg border border-dashed border-gray-300"
+      >
+        <input
+          class="h-5 w-5 text-[#513cee] rounded border-gray-300 focus:ring-[#513cee]"
+          id="drunk"
+          type="checkbox"
+          [formField]="translationForm.isDrunk"
+        />
+        <label class="text-sm font-medium text-gray-800 cursor-pointer" for="drunk">
+          Ik ben zo dronken!!!
+        </label>
+      </div>
     </div>
 
     <div>
@@ -47,7 +60,7 @@
     </div>
 
     <button
-      class="cursor-pointer disabled:cursor-not-allowed disabled:bg-red-900 disabled:hover:bg-red-900 py-4 bg-[#fff533] hover:bg-[#ffe033] text-[#513cee] font-black uppercase tracking-widest rounded-lg transition-colors shadow-md"
+      class="cursor-pointer disabled:cursor-not-allowed disabled:bg-red-900 disabled:hover:bg-red-900 py-4 bg-[#fff533] hover:bg-[#ffe033] text-[#513cee] font-black uppercase rounded-lg transition-colors shadow-md"
       type="button"
       [disabled]="translationForm().invalid()"
       (click)="onTranslate()"

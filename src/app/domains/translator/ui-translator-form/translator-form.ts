@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, computed, input, output, signal } f
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslationRequest } from '../../shared/data/translation-request';
 import { form, FormField, required } from '@angular/forms/signals';
-import { TranslationOption } from '../../shared/data/translation-option';
+import { LanguageOption } from '../../shared/data/language-option';
 import { TranslationOptions } from '../ui-translation-options/translation-options';
-import { TRANSLATION_MAP } from '../../shared/data/allowed-translation-map';
+import { LANGUAGE_MAP } from '../../shared/data/allowed-language-map';
 
 @Component({
   selector: 'app-translator-form',
@@ -18,8 +18,8 @@ export class TranslatorForm {
   readonly translate = output<TranslationRequest>();
 
   private readonly translationModel = signal<TranslationRequest>({
-    toLanguage: TranslationOption.Labrador,
-    fromLanguage: TranslationOption.AutoDetect,
+    toLanguage: LanguageOption.Labrador,
+    fromLanguage: LanguageOption.AutoDetect,
     sourceText: '',
   });
 
@@ -27,16 +27,16 @@ export class TranslatorForm {
     required(path.sourceText, { message: 'Dit veld is verplicht.' });
   });
 
-  protected readonly toLanguageOptions = computed<TranslationOption[]>(() => {
-    return TRANSLATION_MAP[this.translationForm.fromLanguage().value()];
+  protected readonly toLanguageOptions = computed<LanguageOption[]>(() => {
+    return LANGUAGE_MAP[this.translationForm.fromLanguage().value()];
   });
 
-  protected readonly fromLanguageOptions = signal<TranslationOption[]>([
-    TranslationOption.AutoDetect,
-    TranslationOption.Mens,
-    TranslationOption.Labrador,
-    TranslationOption.Parkiet,
-    TranslationOption.Papegaai,
+  protected readonly fromLanguageOptions = signal<LanguageOption[]>([
+    LanguageOption.AutoDetect,
+    LanguageOption.Mens,
+    LanguageOption.Labrador,
+    LanguageOption.Parkiet,
+    LanguageOption.Papegaai,
   ]);
 
   protected onTranslate(): void {

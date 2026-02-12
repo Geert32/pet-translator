@@ -1,7 +1,7 @@
-import { TranslationOption } from './translation-option';
+import { LanguageOption } from './language-option';
 
 export type TranslationRequest = {
   sourceText: string;
-  fromLanguage: TranslationOption;
-  toLanguage: TranslationOption;
+  fromLanguage: LanguageOption;
+  toLanguage: LanguageOption;
 };

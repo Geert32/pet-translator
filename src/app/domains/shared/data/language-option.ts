@@ -1,4 +1,4 @@
-export enum TranslationOption {
+export enum LanguageOption {
   AutoDetect = 'auto-detect',
   Mens = 'mens',
   Labrador = 'labrador',

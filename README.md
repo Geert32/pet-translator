@@ -32,3 +32,21 @@ Om de geautomatiseerde unit tests uit te voeren:
 ```bash
 npm test
 ```
+
+## Architecture
+
+Er is gekozen voor een eenvoudige architectuur met twee domeinen:
+
+- shared: bevat alle services, models en pipes
+- translator: bestaat uit feature en ui componenten
+
+de architectuur wordt bewaakt door sheriff, deze zorgt dat domeinen niet zomaar elkaar kunnen gebruiken.
+
+**Notes:**
+
+- De applicatie maakt geen gebruik meer van zonejs voor change detection
+- De applicatie maakt gebruik van de experimentele signal forms
+
+## Known issues
+
+- initiele selectie van dropdowns kan nog wel is fout gaan. zorg dat je een keuze maakt voordat je op vertalen klikt.
